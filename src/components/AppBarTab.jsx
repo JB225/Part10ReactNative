@@ -1,19 +1,18 @@
-import { Pressable, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import theme from "../theme";
 
 const styles = StyleSheet.create({
   text: {
-    color: theme.colors.menuText,
+    color: theme.colors.whiteText,
     fontWeight: theme.fontWeights.bold,
+    margin: theme.margins.standardMargin
   }
 });
 
 const AppBarTab = ({ text }) => {
   return (
-    <Pressable>
-      <Text style={styles.text}>{text}</Text>
-    </Pressable>
-  )
-}
+    <Text style={styles.text}>{text}</Text>
+  );
+};
 
 export default AppBarTab;
