@@ -3,6 +3,11 @@ import * as yup from "yup";
 import { TextInput, View, StyleSheet, Pressable, Text } from "react-native";
 import theme from "../theme";
 
+const validationSchema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required")
+});
+
 const styles = StyleSheet.create({
   textInput: {
     margin: theme.margins.standardMargin,
@@ -26,11 +31,6 @@ const initialValues = {
   password: ""
 };
 
-const validationSchema = yup.object().shape({
-  username: yup.string().required("Username is required"),
-  password: yup.string().required("Password is required")
-});
-
 const SignIn = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues, 
@@ -38,17 +38,27 @@ const SignIn = ({ onSubmit }) => {
     onSubmit
   });
 
+  const handleTextChange = (value) => {
+    formik.handleBlur(value);
+    formik.handleChange(value);
+    // formik.setFieldTouched(value);
+    // TODO: Fix logging on touched
+    // https://stackoverflow.com/questions/52258083/react-formik-yup-onchange-touch-the-field?rq=3
+    // https://stackoverflow.com/questions/57385931/why-isnt-the-formik-touched-property-being-populated
+    console.log("");
+    console.log(formik);
+  };
+
   return (
     <View>
       <TextInput
         style={styles.textInput}
         placeholder="Username"
         value={formik.values.username}
-        onChangeText={formik.handleChange("username")} />
+        onChangeText={handleTextChange("username")} />
       {formik.touched.username && formik.errors.username && (
         <Text style={{ color: "red" }}>{formik.errors.username}</Text>
       )}
-      {console.log(formik.touched)}
       <TextInput secureTextEntry
         style={styles.textInput}
         placeholder="Password"
