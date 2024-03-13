@@ -38,32 +38,34 @@ const SignIn = ({ onSubmit }) => {
     onSubmit
   });
 
-  const handleTextChange = (value) => {
-    formik.handleBlur(value);
-    formik.handleChange(value);
-    // formik.setFieldTouched(value);
-    // TODO: Fix logging on touched
-    // https://stackoverflow.com/questions/52258083/react-formik-yup-onchange-touch-the-field?rq=3
-    // https://stackoverflow.com/questions/57385931/why-isnt-the-formik-touched-property-being-populated
-    console.log("");
-    console.log(formik);
+  const getErrorStyle = (error) => {
+    if (error) {
+      return {
+        borderWidth: 1,
+        borderColor: "#d73a4a"
+      };
+    }
   };
 
   return (
     <View>
       <TextInput
-        style={styles.textInput}
+        style={[styles.textInput, getErrorStyle(formik.errors.username)]}
         placeholder="Username"
         value={formik.values.username}
-        onChangeText={handleTextChange("username")} />
-      {formik.touched.username && formik.errors.username && (
-        <Text style={{ color: "red" }}>{formik.errors.username}</Text>
+        onChangeText={formik.handleChange("username")} />
+      {formik.errors.username && (
+        <Text style={{ color: "red", padding: theme.padding.standardPadding }}>{formik.errors.username}</Text>
       )}
+      {console.log(formik.touched)}
       <TextInput secureTextEntry
-        style={styles.textInput}
+        style={[styles.textInput, getErrorStyle(formik.errors.password)]}
         placeholder="Password"
         value={formik.values.password}
         onChangeText={formik.handleChange("password")} />
+      {formik.errors.password && (
+        <Text style={{ color: "red", padding: theme.padding.standardPadding }}>{formik.errors.password}</Text>
+      )}
       <Pressable onPress={onSubmit}>
         <Text style={styles.submissionButton}>Sign In</Text>
       </Pressable>
