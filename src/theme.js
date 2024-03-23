@@ -1,11 +1,21 @@
+import { Platform } from "react-native";
+
 const theme = {
   colors: {
     whiteText: "#FFFFFF",
     blueBackgroundColour: "#0366d6",
-    mainComponentBackground: "#e1e4e8"
+    mainComponentBackground: "#e1e4e8", 
+    redErrorColour: "#d73a4a"
   },
   fontWeights: {
     bold: "700",
+  },
+  fonts: {
+    main: Platform.select({
+      android: "Roboto",
+      ios: "sans-serif",
+      default: "System"
+    })
   },
   padding: {
     standardPadding: 5,

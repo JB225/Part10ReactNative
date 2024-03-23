@@ -14,7 +14,8 @@ const styles = StyleSheet.create({
     borderWidth: theme.border.standardBorderWidth,
     borderRadius: theme.border.standardBorderRadius,
     padding: theme.padding.standardPadding,
-    borderColor: theme.colors.mainComponentBackground
+    borderColor: theme.colors.mainComponentBackground,
+    fontFamily: theme.fonts.main
   }, 
   submissionButton: {
     backgroundColor: theme.colors.blueBackgroundColour,
@@ -42,7 +43,7 @@ const SignIn = ({ onSubmit }) => {
     if (error) {
       return {
         borderWidth: 1,
-        borderColor: "#d73a4a"
+        borderColor: theme.colors.redErrorColour
       };
     }
   };
@@ -55,16 +56,17 @@ const SignIn = ({ onSubmit }) => {
         value={formik.values.username}
         onChangeText={formik.handleChange("username")} />
       {formik.errors.username && (
-        <Text style={{ color: "red", padding: theme.padding.standardPadding }}>{formik.errors.username}</Text>
+        <Text style={{ color: theme.colors.redErrorColour, padding: theme.padding.standardPadding }}>
+          {formik.errors.username}</Text>
       )}
-      {console.log(formik.touched)}
       <TextInput secureTextEntry
         style={[styles.textInput, getErrorStyle(formik.errors.password)]}
         placeholder="Password"
         value={formik.values.password}
         onChangeText={formik.handleChange("password")} />
       {formik.errors.password && (
-        <Text style={{ color: "red", padding: theme.padding.standardPadding }}>{formik.errors.password}</Text>
+        <Text style={{ color: theme.colors.redErrorColour, padding: theme.padding.standardPadding }}>
+          {formik.errors.password}</Text>
       )}
       <Pressable onPress={onSubmit}>
         <Text style={styles.submissionButton}>Sign In</Text>

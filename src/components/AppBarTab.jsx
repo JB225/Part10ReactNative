@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
   text: {
     color: theme.colors.whiteText,
     fontWeight: theme.fontWeights.bold,
-    margin: theme.margins.standardMargin
+    margin: theme.margins.standardMargin,
+    fontFamily: theme.fonts.main
   }
 });
 

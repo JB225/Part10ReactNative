@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     paddingBottom: theme.padding.menuBottomPadding,
     paddingHorizontal: theme.padding.menuHorizontalLeftPadding,
-    flexDirection: "row"
+    flexDirection: "row",
+    fontFamily: theme.fonts.main
   }
 });
 

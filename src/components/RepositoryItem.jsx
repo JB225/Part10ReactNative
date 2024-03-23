@@ -5,11 +5,13 @@ const styles = StyleSheet.create({
   primaryText: {
     fontWeight: theme.fontWeights.bold,
     margin: theme.margins.standardMargin,
-    marginBottom: theme.margins.topOrBottomMargin
+    marginBottom: theme.margins.topOrBottomMargin,
+    fontFamily: theme.fonts.main
   },
   secondaryText: {
     margin: theme.margins.standardMargin,
-    marginTop: theme.margins.topOrBottomMargin
+    marginTop: theme.margins.topOrBottomMargin,
+    fontFamily: theme.fonts.main
   },
   avatar: {
     width: theme.smallImage.width,
