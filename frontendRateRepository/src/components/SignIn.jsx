@@ -32,11 +32,11 @@ const initialValues = {
   password: ""
 };
 
-const SignIn = ({ onSubmit }) => {
+const SignIn = ({ login }) => {
+
   const formik = useFormik({
     initialValues, 
-    validationSchema, 
-    onSubmit
+    validationSchema
   });
 
   const getErrorStyle = (error) => {
@@ -68,7 +68,7 @@ const SignIn = ({ onSubmit }) => {
         <Text style={{ color: theme.colors.redErrorColour, padding: theme.padding.standardPadding }}>
           {formik.errors.password}</Text>
       )}
-      <Pressable onPress={onSubmit}>
+      <Pressable onPress={() => {login(formik.values.username, formik.values.password);}}>
         <Text style={styles.submissionButton}>Sign In</Text>
       </Pressable>
     </View>

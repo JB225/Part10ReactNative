@@ -12,8 +12,7 @@ const useRepositories = () => {
       return error;
     }
 
-    if (!loading) {
-      setRepositories(data.repositories);}
+    setRepositories(data.repositories);
   };
 
   useEffect(() => {
