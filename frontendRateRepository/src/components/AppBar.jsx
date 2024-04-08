@@ -3,6 +3,8 @@ import Constants from "expo-constants";
 import theme from "../theme";
 import AppBarTab from "./AppBarTab";
 import { Link } from "react-router-native";
+import { GET_ME } from "../graphql/queries";
+import { useQuery } from "@apollo/client";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,13 +18,16 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { data } = useQuery(GET_ME);
+
   return <View style={styles.container}>
     <ScrollView horizontal>
+      {console.log(data.me)}
       <Link to="/list">
         <AppBarTab text={"Repositories"}/>
       </Link>
       <Link to="/">
-        <AppBarTab text={"Sign in"}/>
+        {data.me ? <AppBarTab text={"Sign in"}/> : <AppBarTab text={"Sign out"}/>}
       </Link>
     </ScrollView>
   </View>;
