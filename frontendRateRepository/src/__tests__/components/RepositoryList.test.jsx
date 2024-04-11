@@ -52,9 +52,20 @@ describe("RepositoryList", () => {
       const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
 
       expect(firstRepositoryItem).toHaveTextContent("jaredpalmer/formik");
+      expect(firstRepositoryItem).toHaveTextContent("Build forms in React, without the tears");
+      expect(firstRepositoryItem).toHaveTextContent("TypeScript");
+      expect(firstRepositoryItem).toHaveTextContent("21.9k");
+      expect(firstRepositoryItem).toHaveTextContent("1.6k");
+      expect(firstRepositoryItem).toHaveTextContent("3");
+      expect(firstRepositoryItem).toHaveTextContent("88");
+
       expect(secondRepositoryItem).toHaveTextContent("async-library/react-async");
-  
-      // Add your test code here
+      expect(secondRepositoryItem).toHaveTextContent("Flexible promise-based React data loader");
+      expect(secondRepositoryItem).toHaveTextContent("JavaScript");
+      expect(secondRepositoryItem).toHaveTextContent("1.8k");
+      expect(secondRepositoryItem).toHaveTextContent("69");
+      expect(secondRepositoryItem).toHaveTextContent("3");
+      expect(secondRepositoryItem).toHaveTextContent("72");  
     });
   });
 });

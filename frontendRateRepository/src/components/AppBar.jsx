@@ -27,7 +27,6 @@ const AppBar = () => {
   const navigate = useNavigate();
 
   const signOut = () => {
-    console.log("SIGNED OUT");
     authStorage.removeAccessToken();
     apolloClient.resetStore();
     navigate("/");
@@ -35,7 +34,6 @@ const AppBar = () => {
 
   return <View style={styles.container}>
     <ScrollView horizontal>
-      {console.log(data)}
       <Link to="/list">
         <AppBarTab text={"Repositories"}/>
       </Link>

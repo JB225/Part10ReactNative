@@ -33,19 +33,7 @@ const initialValues = {
   password: ""
 };
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-
-  const onSubmit = async (values) => {
-    const {username, password} = values;
-
-    try {
-      await signIn({username, password});
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
+export const SignInContainer = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues, 
     validationSchema
@@ -88,6 +76,25 @@ const SignIn = () => {
         <Text style={styles.submissionButton}>Sign In</Text>
       </Pressable>
     </View>
+  );
+};
+
+
+const SignIn = () => {
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const {username, password} = values;
+
+    try {
+      await signIn({username, password});
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  return (
+    <SignInContainer onSubmit={onSubmit} />
   );
 };
 
