@@ -1,5 +1,7 @@
-import { Image, Text, View, StyleSheet } from "react-native";
+import { Image, Text, View, StyleSheet, Pressable } from "react-native";
 import theme from "../theme";
+import {useNavigate} from "react-router-native";
+
 
 const styles = StyleSheet.create({
   primaryText: {
@@ -42,44 +44,52 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItem = ({ item }) => {
+  const navigate = useNavigate();
 
   const kFormatter = (num) => {
     return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + "k" : Math.sign(num)*Math.abs(num);
   };
 
-  return (
-    <View testID="repositoryItem">
-      <View style={styles.flexContainerRow}>
-        <Image
-          style={styles.avatar}
-          source={{uri: item.ownerAvatarUrl}}
-        />
-        <View style={styles.flexContainerColumn}>
-          <Text style={styles.primaryText}>{item.fullName}</Text>
-          <Text style={styles.secondaryText}>{item.description}</Text>
-          <Text style={styles.languageStyle}>{item.language}</Text>
-        </View>
-      </View>
+  const onRepositoryPress = () => {
+    console.log(item.id);
+    navigate(`/users/${item.id}`);
+  };
 
-      <View style={styles.flexContainerRow}>
-        <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
-          <Text style={styles.primaryText}>{kFormatter(item.stargazersCount)}</Text>
-          <Text style={styles.secondaryText}>Stars</Text>
+  return (
+    <Pressable onPress={onRepositoryPress}>
+      <View testID="repositoryItem">
+        <View style={styles.flexContainerRow}>
+          <Image
+            style={styles.avatar}
+            source={{uri: item.ownerAvatarUrl}}
+          />
+          <View style={styles.flexContainerColumn}>
+            <Text style={styles.primaryText}>{item.fullName}</Text>
+            <Text style={styles.secondaryText}>{item.description}</Text>
+            <Text style={styles.languageStyle}>{item.language}</Text>
+          </View>
         </View>
-        <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
-          <Text style={styles.primaryText}>{kFormatter(item.forksCount)}</Text>
-          <Text style={styles.secondaryText}>Forks</Text>
-        </View>
-        <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
-          <Text style={styles.primaryText}>{item.reviewCount}</Text>
-          <Text style={styles.secondaryText}>Reviews</Text>
-        </View>
-        <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
-          <Text style={styles.primaryText}>{item.ratingAverage}</Text>
-          <Text style={styles.secondaryText}>Rating</Text>
+
+        <View style={styles.flexContainerRow}>
+          <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
+            <Text style={styles.primaryText}>{kFormatter(item.stargazersCount)}</Text>
+            <Text style={styles.secondaryText}>Stars</Text>
+          </View>
+          <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
+            <Text style={styles.primaryText}>{kFormatter(item.forksCount)}</Text>
+            <Text style={styles.secondaryText}>Forks</Text>
+          </View>
+          <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
+            <Text style={styles.primaryText}>{item.reviewCount}</Text>
+            <Text style={styles.secondaryText}>Reviews</Text>
+          </View>
+          <View style={[styles.flexContainerColumn, styles.flexContainerCenter]}> 
+            <Text style={styles.primaryText}>{item.ratingAverage}</Text>
+            <Text style={styles.secondaryText}>Rating</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

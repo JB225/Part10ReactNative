@@ -21,6 +21,7 @@ const theme = {
     standardPadding: 5,
     menuBottomPadding: 10,
     menuHorizontalLeftPadding: 15,
+    largeButtonPadding: 15
   },
   margins: {
     standardMargin: 5,
