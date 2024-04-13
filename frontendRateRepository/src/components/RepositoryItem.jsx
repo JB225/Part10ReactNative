@@ -51,7 +51,6 @@ const RepositoryItem = ({ item }) => {
   };
 
   const onRepositoryPress = () => {
-    console.log(item.id);
     navigate(`/users/${item.id}`);
   };
 

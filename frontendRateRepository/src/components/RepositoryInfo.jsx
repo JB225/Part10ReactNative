@@ -1,11 +1,12 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
-import { useParams } from "react-router-native";
-import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
-import { useQuery } from "@apollo/client";
 import RepositoryItem from "./RepositoryItem";
 import theme from "../theme";
 
 const styles = StyleSheet.create({
+  separator: {
+    height: theme.separator.height,
+    backgroundColor: theme.colors.mainComponentBackground
+  },
   githubLinkButton: {
     flexGrow:1,
     textAlign: "center",
@@ -19,36 +20,23 @@ const styles = StyleSheet.create({
   }
 });
 
-const IndividualRepository = () => {
-  let { userId } = useParams();
-  const { data, error, loading } = useQuery(GET_SINGLE_REPOSITORY, 
-    {variables: { "repositoryId": userId }},
-    {fetchPolicy: "cache-and-network"});
+const ItemSeparator = () => <View style={styles.separator} />;
+
+const RepositoryInfo = ({ repository }) => {
 
   const onLinkPress = () => {
-    Linking.openURL(data.repository.url);
+    Linking.openURL(repository.url);
   };
-
-  if (error) {
-    console.log(error);
-  }
-
-  if (loading) {
-    return (
-      <View>
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
 
   return (
     <View>
-      <RepositoryItem item ={data.repository}/>
+      <RepositoryItem item ={repository}/>
       <Pressable onPress={onLinkPress}>
         <Text style={styles.githubLinkButton}>Open in GitHub</Text>
       </Pressable>
+      <ItemSeparator />
     </View>
   );
 };
 
-export default IndividualRepository;
+export default RepositoryInfo;

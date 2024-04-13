@@ -30,7 +30,7 @@ export const GET_REPOSITORIES = gql`
 export const GET_SINGLE_REPOSITORY = gql`
 query($repositoryId: ID!) {
   repository(id: $repositoryId) {
-    createdAt
+        createdAt
     description
     forksCount
     fullName
@@ -46,6 +46,20 @@ query($repositoryId: ID!) {
     url
     userHasReviewed
     watchersCount
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }`;
 
