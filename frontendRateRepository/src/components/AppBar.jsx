@@ -37,12 +37,15 @@ const AppBar = () => {
       <Link to="/list">
         <AppBarTab text={"Repositories"}/>
       </Link>
+      { data && data.me &&           <Link to="/createReview">
+        <AppBarTab text={"Create Review"}/>
+      </Link>}
       { data && data.me ? 
         <Link to="/">
           <Pressable onPress={signOut}>
             <AppBarTab text={"Sign out"}/>
           </Pressable>
-        </Link> :
+        </Link>:
         <Link to="/">
           <AppBarTab text={"Sign in"} />
         </Link> }
