@@ -3,7 +3,8 @@ import * as yup from "yup";
 import theme from "../theme";
 import { useFormik } from "formik";
 import { CREATE_REVIEW } from "../graphql/mutations";
-import { useMutation } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
   textInput: {
@@ -48,8 +49,10 @@ const initialValues = {
   review: ""
 };
 
-const CreateReview = () => {
+const ReviewForm = () => {
   const [mutate] = useMutation(CREATE_REVIEW);
+  const apolloClient = useApolloClient();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues, 
@@ -57,17 +60,31 @@ const CreateReview = () => {
   });
 
   const onSubmit = async () => {
-    const {data} = await mutate({ variables: {
-      review: {
-        "repositoryName": formik.values.name,
-        "text": formik.values.review,
-        "rating": formik.values.rating,
-        "ownerName":  formik.values.owner
-      }}});
+    const reviewData = {
+      "repositoryName": formik.values.name,
+      "text": formik.values.review,
+      "rating": formik.values.rating,
+      "ownerName":  formik.values.owner
+    };
 
-    console.log(data);
+    console.log(reviewData);
 
-    console.log("WORKS!");
+    try {
+      const {data} = await mutate({ variables: {
+        review: {
+          "repositoryName": formik.values.name,
+          "text": formik.values.review,
+          "rating": Number(formik.values.rating),
+          "ownerName":  formik.values.owner
+        }}}
+      );
+
+      apolloClient.resetStore();
+      navigate(`/users/${data.createReview.repositoryId}`);
+
+    } catch (err){
+      console.log(err);
+    }
   };
 
   return (
@@ -116,4 +133,4 @@ const CreateReview = () => {
   );
 };
 
-export default CreateReview;
+export default ReviewForm;
