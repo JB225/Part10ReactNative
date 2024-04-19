@@ -37,7 +37,7 @@ const AppBar = () => {
       <Link to="/list">
         <AppBarTab text={"Repositories"}/>
       </Link>
-      { data && data.me &&           <Link to="/createReview">
+      { data && data.me && <Link to="/createReview">
         <AppBarTab text={"Create Review"}/>
       </Link>}
       { data && data.me ? 
@@ -49,6 +49,9 @@ const AppBar = () => {
         <Link to="/">
           <AppBarTab text={"Sign in"} />
         </Link> }
+      { data && !data.me && <Link to="/signUpForm">
+        <AppBarTab text={"Sign Up"}/>
+      </Link>}
     </ScrollView>
   </View>;
 };

@@ -60,15 +60,6 @@ const ReviewForm = () => {
   });
 
   const onSubmit = async () => {
-    const reviewData = {
-      "repositoryName": formik.values.name,
-      "text": formik.values.review,
-      "rating": formik.values.rating,
-      "ownerName":  formik.values.owner
-    };
-
-    console.log(reviewData);
-
     try {
       const {data} = await mutate({ variables: {
         review: {
@@ -122,11 +113,7 @@ const ReviewForm = () => {
         value={formik.values.review}
         onChangeText={formik.handleChange("review")}
         multiline={true} />
-      <Pressable onPress={() => {
-        let username = formik.values.username;
-        let password = formik.values.password;
-        onSubmit({username, password});
-      }}>
+      <Pressable onPress={() => { onSubmit(); }}>
         <Text style={styles.submissionButton}>Create a review</Text>
       </Pressable>
     </View>

@@ -6,6 +6,7 @@ import AppBar from "./AppBar";
 import SignIn from "./SignIn";
 import SingleRepository from "./SingleRepository";
 import ReviewForm from "./ReviewForm";
+import SignUpForm from "./SignUpForm";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,6 +26,7 @@ const Main = () => {
         <Route path="*" element={<Navigate to="/" replace/>}/>
         <Route path="/users/:userId" element={<SingleRepository/>}/>
         <Route path="/createReview" element={<ReviewForm/>}/>
+        <Route path="/signUpForm" element={<SignUpForm/>}/>
       </Routes>
     </View>
   );
