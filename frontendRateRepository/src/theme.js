@@ -34,7 +34,7 @@ const theme = {
   },
   border: {
     standardBorderRadius: 5,
-    standardBorderWidth: 1
+    standardBorderWidth: 1,
   },
   separator: {
     height: 10

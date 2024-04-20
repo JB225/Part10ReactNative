@@ -40,6 +40,9 @@ const AppBar = () => {
       { data && data.me && <Link to="/createReview">
         <AppBarTab text={"Create Review"}/>
       </Link>}
+      { data && data.me && <Link to="/myReviews">
+        <AppBarTab text={"My Reviews"}/>
+      </Link>}
       { data && data.me ? 
         <Link to="/">
           <Pressable onPress={signOut}>
