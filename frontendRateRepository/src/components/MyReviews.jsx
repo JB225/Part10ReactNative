@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
+import { GET_ME } from "../graphql/queries";
 import theme from "../theme";
 import ReviewItem from "./ReviewItem";
 
@@ -14,9 +14,8 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const MyReviews = () => {
-  const { data, error, loading } = useQuery(GET_SINGLE_REPOSITORY, 
-    {variables: { "repositoryId": "async-library.react-async"}},
-    {fetchPolicy: "cache-and-network"});
+  const { data, error, loading, refetch } = useQuery(GET_ME, 
+    {variables: { "includeReviews" : true }});
       
   if (error) {
     console.log(error);
@@ -30,8 +29,8 @@ const MyReviews = () => {
     );
   }
 
-  const reviewNodes = data.repository.reviews
-    ? data.repository.reviews.edges.map((edge) => edge.node)
+  const reviewNodes = data.me.reviews
+    ? data.me.reviews.edges.map((edge) => edge.node)
     : [];
 
   return (
@@ -39,7 +38,7 @@ const MyReviews = () => {
       <FlatList
         data={reviewNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={({ item }) => <ReviewItem review={item} />}
+        renderItem={({ item }) => <ReviewItem review={item} actions={true} refetch={refetch} />}
         keyExtractor={({ id }) => id }
       />    
     </View>

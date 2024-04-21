@@ -45,7 +45,7 @@ const validationSchema = yup.object().shape({
 const initialValues = {
   owner: "",
   name: "",
-  rating: 0,
+  rating: "",
   review: ""
 };
 
@@ -101,7 +101,7 @@ const ReviewForm = () => {
       <TextInput
         style={[styles.textInput, getErrorStyle(formik.errors.rating)]}
         placeholder="Rating between 0 and 100"
-        value={formik.values.rating}
+        value={"" + formik.values.rating}
         onChangeText={formik.handleChange("rating")} />
       {formik.errors.rating && (
         <Text style={{ color: theme.colors.redErrorColour, padding: theme.padding.standardPadding }}>
@@ -113,7 +113,7 @@ const ReviewForm = () => {
         value={formik.values.review}
         onChangeText={formik.handleChange("review")}
         multiline={true} />
-      <Pressable onPress={() => { onSubmit(); }}>
+      <Pressable onPress={() => onSubmit()}>
         <Text style={styles.submissionButton}>Create a review</Text>
       </Pressable>
     </View>

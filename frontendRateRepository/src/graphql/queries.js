@@ -64,10 +64,27 @@ query($repositoryId: ID!) {
 }`;
 
 export const GET_ME = gql`
-query {
-    me {
-      id
-      username
+query getCurrentUser($includeReviews: Boolean = false) {
+  me {
+    id
+    username
+    reviews @include(if: $includeReviews) {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            username
+          }
+          repository {
+            fullName
+            id
+          }
+        }
+      }
     }
   }
+}
 `;
