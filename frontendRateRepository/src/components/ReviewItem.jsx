@@ -73,8 +73,7 @@ const ReviewItem = ({ review, actions, refetch }) => {
 
   const onDelete = () => {
     Alert.alert("Delete Review", "Are you sure you want to delete this review?", [
-      { text: "CANCEL",
-        onPress: () => console.log("Cancel")}, 
+      { text: "CANCEL" }, 
       {text: "DELETE",
         onPress: async () => {
           try {

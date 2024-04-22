@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({ repositories, selectedOrder, 
-  setSelectedOrder, filterText, setFilterText }) => {
+  setSelectedOrder, filterText, setFilterText, onEndReach }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -54,6 +54,8 @@ export const RepositoryListContainer = ({ repositories, selectedOrder,
             </Picker>    
           </View>
         }
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
       <ItemSeparator/>
     </View>
@@ -66,12 +68,17 @@ const RepositoryList = () => {
   const [value] = useDebounce(filterText, 500);
   const { repositories } = useRepositories(selectedOrder, value);
 
+  const onEndReach = () => {
+    console.log("You have reached the end of the list");
+  };
+
   return <RepositoryListContainer 
     repositories={repositories} 
     selectedOrder={selectedOrder} 
     setSelectedOrder={setSelectedOrder}
     filterText={filterText}
-    setFilterText={setFilterText} />;
+    setFilterText={setFilterText}
+    onEndReach={onEndReach} />;
 };
   
 export default RepositoryList;
