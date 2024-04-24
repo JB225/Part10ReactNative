@@ -31,7 +31,7 @@ export const RepositoryListContainer = ({ repositories, selectedOrder,
     : [];
   
   return (
-    <View>
+    <View style={{flex: 1}}>
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
@@ -66,9 +66,10 @@ const RepositoryList = () => {
   const [selectedOrder, setSelectedOrder] = useState("latest");
   const [filterText, setFilterText] = useState("");
   const [value] = useDebounce(filterText, 500);
-  const { repositories } = useRepositories(selectedOrder, value);
+  const { repositories, fetchMore } = useRepositories(selectedOrder, value, 5);
 
   const onEndReach = () => {
+    fetchMore();
     console.log("You have reached the end of the list");
   };
 

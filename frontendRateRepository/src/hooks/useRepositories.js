@@ -3,14 +3,14 @@ import { GET_REPOSITORIES } from "../graphql/queries";
 import { useQuery } from "@apollo/client";
 
 
-const useRepositories = ( selectedOrder, filterText ) => {
+const useRepositories = ( selectedOrder, filterText, first ) => {
   const [repositories, setRepositories] = useState();
 
   const variables = {
     "orderBy": selectedOrder == "latest" ? "CREATED_AT" : "RATING_AVERAGE",
     "orderDirection": selectedOrder == "lowest" ? "ASC" : "DESC",
     "searchKeyword": filterText,
-    first: 6
+    first: first
   };
 
   const { data, error, fetchMore, loading } = useQuery(GET_REPOSITORIES, 
@@ -30,11 +30,16 @@ const useRepositories = ( selectedOrder, filterText ) => {
   };
 
   const handleFetchMore = () => {
+    console.log("WORKING");
+    console.log(data?.repositories.pageInfo.hasNextPage);
     const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
 
     if (!canFetchMore) {
+      console.log("NOT");
       return;
     }
+
+    console.log(data.repositories.pageInfo.endCursor);
 
     fetchMore({
       variables: {
