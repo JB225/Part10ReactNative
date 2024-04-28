@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import RepositoryInfo from "./RepositoryInfo";
-import { GET_SINGLE_REPOSITORY } from "../graphql/queries";
+import { GET_SINGLE_REPOSITORY } from "../../graphql/queries";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-native";
-import theme from "../theme";
-import ReviewItem from "./ReviewItem";
+import theme from "../../theme";
+import ReviewItem from "../Reviews/ReviewItem";
 
 const styles = StyleSheet.create({
   separator: {
@@ -18,7 +18,10 @@ const ItemSeparator = () => <View style={styles.separator} />;
 const SingleRepository = () => {
   let { userId } = useParams();
   const { data, error, loading } = useQuery(GET_SINGLE_REPOSITORY, 
-    {variables: { "repositoryId": userId }},
+    {variables: { 
+      "repositoryId": userId,
+      "first": 2
+    }},
     {fetchPolicy: "cache-and-network"});
       
   if (error) {
@@ -38,7 +41,7 @@ const SingleRepository = () => {
     : [];
       
   return (
-    <View>
+    <View style={{flex: 1}}>
       <FlatList
         data={reviewNodes}
         ItemSeparatorComponent={ItemSeparator}

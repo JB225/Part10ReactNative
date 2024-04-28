@@ -1,6 +1,6 @@
 import { Linking, Pressable, StyleSheet, Text, View } from "react-native";
-import RepositoryItem from "./RepositoryItem";
-import theme from "../theme";
+import RepositoryItem from "../RepositoryList/RepositoryItem";
+import theme from "../../theme";
 
 const styles = StyleSheet.create({
   separator: {

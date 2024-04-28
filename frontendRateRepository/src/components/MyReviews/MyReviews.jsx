@@ -1,8 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { GET_ME } from "../graphql/queries";
-import theme from "../theme";
-import ReviewItem from "./ReviewItem";
+import { GET_ME } from "../../graphql/queries";
+import theme from "../../theme";
+import ReviewItem from "../Reviews/ReviewItem";
+
+// 1. Create Query
+// 2. Update ApolloClient
+// 3. Create FetchMore method
+// 4. Add onEndReach method -> Test works
+// 5. Test it grabs reviews
 
 const styles = StyleSheet.create({
   separator: {

@@ -35,7 +35,7 @@ query Repositories($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirec
     }`;
 
 export const GET_SINGLE_REPOSITORY = gql`
-query($repositoryId: ID!) {
+query($repositoryId: ID!, $first: Int, $after: String) {
   repository(id: $repositoryId) {
         createdAt
     description
@@ -53,7 +53,7 @@ query($repositoryId: ID!) {
     url
     userHasReviewed
     watchersCount
-    reviews {
+    reviews(first: $first, after: $after) {
       edges {
         node {
           id
@@ -65,6 +65,7 @@ query($repositoryId: ID!) {
             username
           }
         }
+        cursor
       }
     }
   }

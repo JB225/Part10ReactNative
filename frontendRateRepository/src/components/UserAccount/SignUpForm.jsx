@@ -1,10 +1,10 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import theme from "../theme";
+import theme from "../../theme";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { CREATE_USER } from "../graphql/mutations";
+import { CREATE_USER } from "../../graphql/mutations";
 import { useMutation } from "@apollo/client";
-import useSignIn from "../hooks/useSignIn";
+import useSignIn from "../../hooks/useSignIn";
 
 const styles = StyleSheet.create({
   textInput: {

@@ -1,8 +1,8 @@
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
-import theme from "../theme";
+import theme from "../../theme";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-native";
-import { DELETE_REVIEW } from "../graphql/mutations";
+import { DELETE_REVIEW } from "../../graphql/mutations";
 import { useMutation } from "@apollo/client";
 
 const styles = StyleSheet.create({

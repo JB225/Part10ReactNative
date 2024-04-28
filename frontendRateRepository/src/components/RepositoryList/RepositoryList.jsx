@@ -1,7 +1,7 @@
 import { FlatList, View, StyleSheet } from "react-native";
-import useRepositories from "../hooks/useRepositories";
+import useRepositories from "../../hooks/useRepositories";
 import RepositoryItem from "./RepositoryItem";
-import theme from "../theme";
+import theme from "../../theme";
 import { useState } from "react";
 import {Picker} from "@react-native-picker/picker";
 import { Searchbar } from "react-native-paper";
@@ -70,7 +70,6 @@ const RepositoryList = () => {
 
   const onEndReach = () => {
     fetchMore();
-    console.log("You have reached the end of the list");
   };
 
   return <RepositoryListContainer 
