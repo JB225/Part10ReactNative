@@ -65,7 +65,10 @@ query($repositoryId: ID!, $first: Int, $after: String) {
             username
           }
         }
-        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }

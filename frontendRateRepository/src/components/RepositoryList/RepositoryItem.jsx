@@ -1,7 +1,5 @@
 import { Image, Text, View, StyleSheet, Pressable } from "react-native";
 import theme from "../../theme";
-import {useNavigate} from "react-router-native";
-
 
 const styles = StyleSheet.create({
   primaryText: {
@@ -43,8 +41,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const RepositoryItem = ({ item }) => {
-  const navigate = useNavigate();
+const RepositoryItem = ({ item, navigate }) => {
 
   const kFormatter = (num) => {
     return Math.abs(num) > 999 ? Math.sign(num)*((Math.abs(num)/1000).toFixed(1)) + "k" : Math.sign(num)*Math.abs(num);

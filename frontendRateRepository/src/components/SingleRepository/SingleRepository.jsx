@@ -17,11 +17,13 @@ const ItemSeparator = () => <View style={styles.separator} />;
   
 const SingleRepository = () => {
   let { userId } = useParams();
-  const { data, error, loading } = useQuery(GET_SINGLE_REPOSITORY, 
-    {variables: { 
-      "repositoryId": userId,
-      "first": 2
-    }},
+  const variables = {
+    "repositoryId": userId,
+    "first": 4
+  };
+
+  const { data, error, loading, fetchMore } = useQuery(GET_SINGLE_REPOSITORY, 
+    {variables: variables },
     {fetchPolicy: "cache-and-network"});
       
   if (error) {
@@ -36,6 +38,21 @@ const SingleRepository = () => {
     );
   }
 
+  const onEndReach = () => {
+    const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        "after": data.repository.reviews.pageInfo.endCursor,
+        ...variables,
+      }
+    });
+  };
+
   const reviewNodes = data.repository.reviews
     ? data.repository.reviews.edges.map((edge) => edge.node)
     : [];
@@ -48,6 +65,8 @@ const SingleRepository = () => {
         renderItem={({ item }) => <ReviewItem review={item} />}
         keyExtractor={({ id }) => id}
         ListHeaderComponent={() => <RepositoryInfo repository={data.repository} />}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
       <ItemSeparator/>
     </View>

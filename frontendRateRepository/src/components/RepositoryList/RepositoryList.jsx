@@ -6,6 +6,7 @@ import { useState } from "react";
 import {Picker} from "@react-native-picker/picker";
 import { Searchbar } from "react-native-paper";
 import { useDebounce } from "use-debounce";
+import { useNavigate } from "react-router-native";
 
 
 const styles = StyleSheet.create({
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export const RepositoryListContainer = ({ repositories, selectedOrder, 
-  setSelectedOrder, filterText, setFilterText, onEndReach }) => {
+  setSelectedOrder, filterText, setFilterText, onEndReach, navigate }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -35,7 +36,7 @@ export const RepositoryListContainer = ({ repositories, selectedOrder,
       <FlatList
         data={repositoryNodes}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={({item}) => (<RepositoryItem item={item}/>)}
+        renderItem={({item}) => (<RepositoryItem item={item} navigate={navigate}/>)}
         ListHeaderComponent={
           <View>
             <Searchbar
@@ -67,6 +68,7 @@ const RepositoryList = () => {
   const [filterText, setFilterText] = useState("");
   const [value] = useDebounce(filterText, 500);
   const { repositories, fetchMore } = useRepositories(selectedOrder, value, 5);
+  const navigate = useNavigate();
 
   const onEndReach = () => {
     fetchMore();
@@ -78,7 +80,8 @@ const RepositoryList = () => {
     setSelectedOrder={setSelectedOrder}
     filterText={filterText}
     setFilterText={setFilterText}
-    onEndReach={onEndReach} />;
+    onEndReach={onEndReach}
+    navigate={navigate} />;
 };
   
 export default RepositoryList;
